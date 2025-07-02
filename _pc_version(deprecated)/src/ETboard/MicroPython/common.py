@@ -1,11 +1,12 @@
 # *****************************************************************************************
 # FileName     : common
 # Description  : 공통모듈
-# Author       : 손철수
+# Author       : 손철
 # CopyRight    : (주)한국공학기술연구원(www.ketri.re.kr)
 # Created Date : 2024.02.22
 # Reference    :
 # Modified     : 2024.02.23 : SCS : Check class_id
+# Modified     : 2024.02.26 : SCS : Check None
 # *****************************************************************************************
 
 # serial_init    
@@ -16,14 +17,20 @@ def serial_init(uart):
     
     
 # serial_init    
-def receive_msg(uart):    
+def receive_msg(uart):
+    #print("receive_msg")
+    #print(uart)
+    if (uart is None) :
+        print('uart is None')
+        return 3
+    
     msg = uart.readline()                 # 메시지를 1줄씩 읽음
     if msg is None:             
         return 3
 
     class_id = int(msg.rstrip())
     if (class_id > 3 or class_id < 0):
-        class_id = 3
+        class_id = 3 
         
     return class_id
 
@@ -33,4 +40,3 @@ def receive_msg(uart):
 #  (주)한국공학기술연구원 http://et.ketri.re.kr
 #
 # ==========================================================================================
-
